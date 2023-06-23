@@ -1,0 +1,12 @@
+outputs
+*.py[cod]
+*$py.class
+.ipynb*
+.ipynb_checkpoints
+.vscode
+autoencoders/__pycache__
+**/__pycache__/**
+autoencoders/lightning_logs/
+autoencoders/lightning_logs_old/
+**lightning_logs**
+

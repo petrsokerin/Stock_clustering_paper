@@ -1,0 +1,38 @@
+{
+	"start_date": "2018-01-01",
+	"end_date": "2023-05-19",
+	"riskless_rate": 0.03,
+	"n_clusters": 11,
+	"n_stock_portfolio": 2,
+	"random_state": 42,
+
+	"ticker_companies": "data/sp500_tickers.csv",
+	"tickers_sectors_path": "data/ticker_sectors.csv",
+	"ticker_data_close": "data/ticker_data_Close_may.csv",
+	"ticker_data_sp500": "data/ticker_data_SP500_may.csv",
+	"ticker_data_volume": "data/ticker_data_Volume.csv",
+
+	"ticker_data_preprocessed": "data/ticker_data_preprocessed_may.csv",
+	"features_path": "data/features.csv",
+
+	"nn_mlp_checkpoint_2020":"autoencoders/lightning_logs_2020/mlp/version_0/checkpoints/epoch=149-step=15450.ckpt",
+	"nn_lstm_checkpoint_2020":"autoencoders/lightning_logs_2020/lstm/version_0/checkpoints/epoch=99-step=9100.ckpt",
+	"nn_conv_checkpoint_2020":"autoencoders/lightning_logs_2020/cae/version_0/checkpoints/epoch=99-step=10300.ckpt",
+    
+	"nn_mlp_checkpoint_2021":"autoencoders/lightning_logs_2021/mlp/version_0/checkpoints/epoch=149-step=21600.ckpt",
+	"nn_lstm_checkpoint_2021":"autoencoders/lightning_logs_2021/lstm/version_0/checkpoints/epoch=99-step=12800.ckpt",
+	"nn_conv_checkpoint_2021":"autoencoders/lightning_logs_2021/cae/version_0/checkpoints/epoch=99-step=14400.ckpt",
+
+
+	"metrics_path": "results/metrics_table_december_.csv",
+	"predictions_path": "results/prediction_table_december_.csv",
+	"params_path": "results/params_df_december_.csv",
+	"port_metrics_path": "results/port_metrics_december_.csv",
+	"best_metrics_path": "results/best_metrics_december_.csv",
+    
+    "financial_metric_path": "results/financial_metric_{}_{}_december_.csv",
+    "clust_metric_path": "results/clust_metric_{}_{}_december_.csv",
+    "port_path": "results/metrics_table_{}_{}_december_.pickle",
+    "weights_path": "results/weights_table_{}_{}_december_.pickle"
+    
+}

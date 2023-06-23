@@ -1,0 +1,39 @@
+import pandas as pd
+import json
+
+
+def main():
+    path = '../'
+    with open(path+'config/config.json', 'r') as file:
+        config = json.load(file)
+
+    df = pd.read_csv(path+config['ticker_data_close'], index_col=0)
+
+    #print(df.head())
+    df_na = df.isna().sum()
+    thresh = 0.05 * len(df)
+    stocks_to_drop = df_na[df_na > thresh].index.tolist()
+    df = df.drop(stocks_to_drop, axis=1)
+    df = df.dropna(axis=0)
+
+    #print(df.shape)
+
+    df = df.pct_change()[1:]
+    df = df.T
+
+    df_sectors = pd.read_csv(path + config['tickers_sectors_path'], index_col=0)
+    dict_tick_sect = dict(zip(df_sectors['ticker'].values.tolist(),
+                              df_sectors['sector'].values.tolist()))
+
+    set_tickers_from_sect = set(df_sectors['ticker'].values.tolist())
+    set_tickers_from_close = set(df.index.tolist())
+    tickers_to_save = list(set_tickers_from_sect & set_tickers_from_close)
+    df = df.loc[sorted(tickers_to_save)]
+
+    df['sector'] = df.index.map(dict_tick_sect)
+    df.drop([x for x in df.index if '.' in x], axis=0, inplace=True)
+    df.to_csv(path+config['ticker_data_preprocessed'])
+    return df
+
+if __name__ == "__main__":
+    main()
