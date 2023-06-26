@@ -1,7 +1,7 @@
 import datetime
 import pandas as pd
 
-def data_uploading(cfg):
+def data_uploading(cfg, split="train"):
     df = pd.read_csv(cfg['data_folder'], index_col=0)
 
     sectors = df['sector']
@@ -17,9 +17,12 @@ def data_uploading(cfg):
     df_market = df_market.pct_change()[1:]
 
     
-    if isinstance(cfg['year_split'], int):
+    if isinstance(cfg['year_split'], int) and split=="train":
         df_pct = df_pct[(df_pct.index < datetime(cfg['year_split'], 1, 1)) ]
         df_market = df_market[(df_market.index < datetime(cfg['year_split'], 1, 1)) ]
+    elif isinstance(cfg['year_split'], int) and split=="test":
+        df_pct = df_pct[(df_pct.index > datetime(cfg['year_split'], 1, 1)) ]
+        df_market = df_market[(df_market.index > datetime(cfg['year_split'], 1, 1)) ]
     else:
         df_market = df_market.join(df_pct, how='inner')[['market']]      
 
