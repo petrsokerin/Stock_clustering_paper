@@ -1,0 +1,20 @@
+start_date: "2015-01-01" # "2018-01-01"
+end_date: "2020-01-01" # "2023-05-19"
+experiment_name: 'december_'
+
+download_market_data: False
+download_meaning: 'Close'
+save_folder: data/data/${experiment_name}
+
+download_market: False
+market_ticker: 'FTSE' #'^GSPC'
+
+download_sectors: True
+preprocessed: False
+
+ticker_companies: "data/tickers_list/sp500_tickers.csv"
+ticker_sectors_path: "${save_folder}/ticker_sectors.csv"
+ticker_data_close: "${save_folder}/ticker_data_Close.csv"
+ticker_data_market: "${save_folder}/ticker_data_Market.csv"
+ticker_data_volume: "${save_folder}/ticker_data_Volume.csv"
+ticker_data_preprocessed: "${save_folder}/ticker_data_preprocessed.csv"

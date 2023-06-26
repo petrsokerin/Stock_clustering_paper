@@ -4,15 +4,20 @@ riskless_rate: 0.03
 n_clusters: 11
 n_stock_portfolio: 2
 random_state: 42
+year_split: 2020
+fine_tune: False
+experiment_name: 'december_'
+market_ticker: ['^GSPC']
+downloading_meaning: 'Close'
 
 ticker_companies: "data/sp500_tickers.csv"
-tickers_sectors_path: "data/ticker_sectors.csv"
-ticker_data_close: "data/ticker_data_Close_may.csv"
-ticker_data_sp500: "data/ticker_data_SP500_may.csv"
-ticker_data_volume: "data/ticker_data_Volume.csv"
+ticker_sectors_path: "data/ticker_sectors.csv"
+ticker_data_close: "data/ticker_data_Close_${experiment_name}.csv"
+ticker_data_market: "data/ticker_data_market_${experiment_name}.csv"
+ticker_data_volume: "data/ticker_data_Volume_${experiment_name}.csv"
 
-ticker_data_preprocessed: "data/ticker_data_preprocessed_may.csv"
-features_path: "data/features.csv"
+#ticker_data_preprocessed: "data/ticker_data_preprocessed_may.csv"
+#features_path: "data/features.csv"
 
 nn_mlp_checkpoint_2020: "autoencoders/lightning_logs_2020/mlp/version_0/checkpoints/epoch=149-step=15450.ckpt"
 nn_lstm_checkpoint_2020: "autoencoders/lightning_logs_2020/lstm/version_0/checkpoints/epoch=99-step=9100.ckpt"
@@ -23,13 +28,13 @@ nn_lstm_checkpoint_2021: "autoencoders/lightning_logs_2021/lstm/version_0/checkp
 nn_conv_checkpoint_2021: "autoencoders/lightning_logs_2021/cae/version_0/checkpoints/epoch=99-step=14400.ckpt"
 
 
-metrics_path: "results/metrics_table_december_.csv"
-predictions_path: "results/prediction_table_december_.csv"
-params_path: "results/params_df_december_.csv"
-port_metrics_path: "results/port_metrics_december_.csv"
-best_metrics_path: "results/best_metrics_december_.csv"
+metrics_path: "results/metrics_table_${experiment_name}.csv"
+predictions_path: "results/prediction_table_${experiment_name}.csv"
+params_path: "results/params_df_${experiment_name}.csv"
+port_metrics_path: "results/port_metrics_${experiment_name}.csv"
+best_metrics_path: "results/best_metrics_${experiment_name}.csv"
 
-financial_metric_path: "results/financial_metric_{}_{}_december_.csv"
-clust_metric_path: "results/clust_metric_{}_{}_december_.csv"
-port_path: "results/metrics_table_{}_{}_december_.pickle"
-weights_path: "results/weights_table_{}_{}_december_.pickle"
+financial_metric_path: "results/financial_metric_${year_split}_${fine_tune}_${experiment_name}.csv"
+clust_metric_path: "results/clust_metric_${year_split}_${fine_tune}_${experiment_name}.csv"
+port_path: "results/metrics_table_${year_split}_${fine_tune}_${experiment_name}.pickle"
+weights_path: "results/weights_table_${year_split}_${fine_tune}_${experiment_name}.pickle"
