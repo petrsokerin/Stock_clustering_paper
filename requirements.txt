@@ -10,3 +10,4 @@ giotto-tda==0.6.0
 sklearn==1.0.2
 pytorch-lightning==1.5.10
 torch==1.10.2
+finvizfinance
