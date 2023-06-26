@@ -1,4 +1,4 @@
-save_folder: data
+save_folder: data/embeddings
 year_split: 2020
 experiment_name_load: may
 experiment_name_save: 'test'
