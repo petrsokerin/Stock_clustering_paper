@@ -41,7 +41,7 @@ def test_mlp_encoder(data_path,log_path):
 
 if __name__ == '__main__':
     experiment_name = 'usa_2012'
-    path = f'../data/data/usa_2012/ticker_data_preprocessed.csv'
+    path = f'../data/data/{experiment_name}/ticker_data_preprocessed.csv'
     
     import pandas as pd
     pd.read_csv(path)
