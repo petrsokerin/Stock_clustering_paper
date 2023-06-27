@@ -1,12 +1,13 @@
 save_folder: data/embeddings
 year_split: 2020
-experiment_name_load: may
-experiment_name_save: 'test'
+experiment_name_load: usa_2018
+experiment_name_save: ${experiment_name_load}
 riskless_rate: 0.03
 
-data_path: "data/${experiment_name_load}/ticker_data_preprocessed.csv"
-ticker_data_market: "data/${experiment_name_load}/ticker_data_SP500.csv"
-save_path: ${save_folder}/embeddings_${year_split}_${experiment_name_save}
+save_path: ${save_folder}/${experiment_name_save}
+load_path: data/data/${experiment_name_load}
+data_path: "${load_path}/ticker_data_preprocessed.csv"
+market_path: "${load_path}/ticker_data_Market.csv"
 
 emb_size: 100
 random_state: 42
@@ -39,7 +40,7 @@ embedding_methods:
       _target_: embeddings.base_embedding.AutoencoderEmbedding
       model_name : mlp
       model_params:
-        checkpoint_path: "autoencoders/lightning_logs_2020/mlp/version_0/checkpoints/epoch=149-step=15450.ckpt"
+        checkpoint_path: "autoencoders/best_logs/${experiment_name_load}/mlp.ckpt"
         in_features: ${emb_size}
         latent_features: ${emb_size}
       path: ${save_path}/autoencoder_mlp.csv
@@ -48,7 +49,7 @@ embedding_methods:
       _target_: embeddings.base_embedding.AutoencoderEmbedding
       model_name : cnn
       model_params:
-        checkpoint_path: "./autoencoders/lightning_logs_2020/cae/version_0/checkpoints/epoch=99-step=10300.ckpt"
+        checkpoint_path: "autoencoders/best_logs/${experiment_name_load}/cnn.ckpt"
         in_channels: 1
         n_latent_features: ${emb_size}
         seq_len: ${emb_size}
@@ -58,7 +59,7 @@ embedding_methods:
       _target_: embeddings.base_embedding.AutoencoderEmbedding
       model_name : lstm
       model_params:
-        checkpoint_path: "./autoencoders/lightning_logs_2020/lstm/version_0/checkpoints/epoch=99-step=9100.ckpt"
+        checkpoint_path: "autoencoders/best_logs/${experiment_name_load}/lstm.ckpt"
         seq_len: ${emb_size}
         n_features: 1
         embedding_dim: ${emb_size}
