@@ -109,7 +109,10 @@ def main(cfg: DictConfig):
     
     if not os.path.isdir(path + cfg['save_folder']):
         os.makedirs(path + cfg['save_folder'])
-        shutil.copyfile(path + 'config/download_config.yaml', path + cfg['save_folder'])
+        shutil.copyfile(
+            path + 'config/download_config.yaml', 
+            path + cfg['save_folder'] +'/download_config.yaml'
+        )
     
     # with open(path + 'config/config.json', 'r') as file:
     #     config = json.load(file)
@@ -128,7 +131,7 @@ def main(cfg: DictConfig):
         df_market.to_csv(path+cfg['ticker_data_market'])
     
     # market data downloading
-    if cfg['download_market']:
+    if cfg['download_market_data']:
         if cfg['download_meaning'] == 'Close':
             save_stock_data_path = path+cfg['ticker_data_close']
         elif cfg['download_meaning'] == 'Volume':
