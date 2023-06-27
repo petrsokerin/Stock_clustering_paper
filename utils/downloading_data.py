@@ -109,10 +109,11 @@ def main(cfg: DictConfig):
     
     if not os.path.isdir(path + cfg['save_folder']):
         os.makedirs(path + cfg['save_folder'])
-        shutil.copyfile(
-            path + 'config/download_config.yaml', 
-            path + cfg['save_folder'] +'/download_config.yaml'
-        )
+        
+    shutil.copyfile(
+        path + 'config/download_config.yaml', 
+        path + cfg['save_folder'] +'/download_config.yaml'
+    )
     
     # with open(path + 'config/config.json', 'r') as file:
     #     config = json.load(file)
