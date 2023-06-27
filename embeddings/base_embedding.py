@@ -6,7 +6,7 @@ import torch
 from tsfresh import extract_features
 from sklearn.feature_selection import SelectKBest
 from utils.table_feature_calculation import financial_feature_calculation
-from .autoencoders.autoencoders import Conv1dAutoEncoder, LSTMAutoEncoder, MLPAutoEncoder
+from autoencoders.autoencoders import Conv1dAutoEncoder, LSTMAutoEncoder, MLPAutoEncoder
 
 
 class Embedding(ABC):

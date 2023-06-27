@@ -2,7 +2,7 @@ import datetime
 import pandas as pd
 
 def data_uploading(cfg, split="train"):
-    df = pd.read_csv(cfg['data_folder'], index_col=0)
+    df = pd.read_csv(cfg['data_path'], index_col=0)
 
     sectors = df['sector']
 
@@ -11,7 +11,7 @@ def data_uploading(cfg, split="train"):
 
     tickers_list = df_pct.columns.tolist()
 
-    df_market = pd.read_csv(cfg['ticker_data_sp500'], index_col=0)
+    df_market = pd.read_csv(cfg['ticker_data_market'], index_col=0)
     df_market.columns = ['market']
     df_market.index = pd.to_datetime(df_market.index)
     df_market = df_market.pct_change()[1:]

@@ -12,7 +12,7 @@ market_ticker: 'FTSE' #'^GSPC'
 download_sectors: True
 preprocessed: False
 
-ticker_companies: "data/tickers_list/sp500_tickers.csv"
+ticker_companies: "data/tickers_list/FTSE_tickers.csv"
 ticker_sectors_path: "${save_folder}/ticker_sectors.csv"
 ticker_data_close: "${save_folder}/ticker_data_Close.csv"
 ticker_data_market: "${save_folder}/ticker_data_Market.csv"

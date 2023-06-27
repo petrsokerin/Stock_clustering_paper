@@ -9,8 +9,7 @@ import hydra
 from hydra.utils import instantiate
 from omegaconf import DictConfig
 import yfinance as yf
-from finvizfinance.quote import finvizfinance
-
+from pyfinviz.quote import Quote
 
 
 def loading_dataset(tickers, start_date, end_date, meaning):
@@ -58,8 +57,12 @@ def getting_sect_per_ticker(tickers):
     dict_tick_sect = dict()
     for ticker in tqdm(tickers):
         try:
-            stock = finvizfinance(ticker)
-            dict_tick_sect[ticker] = stock.ticker_fundament()['Sector']
+            # stock = finvizfinance(ticker)
+            # sector =  stock.ticker_fundament()['Sector']
+            
+            quote = Quote(ticker=ticker)
+            sector = quote.sectors[0]
+            dict_tick_sect[ticker] = sector
         except:
             print(ticker)
             continue
