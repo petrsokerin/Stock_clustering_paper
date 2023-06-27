@@ -1,0 +1,87 @@
+save_folder: data/embeddings
+year_split: 2020
+experiment_name_load: usa_2018
+experiment_name_save: ${experiment_name_load}
+riskless_rate: 0.03
+
+save_path: ${save_folder}/${experiment_name_save}
+load_path: data/data/${experiment_name_load}
+data_path: "${load_path}/ticker_data_preprocessed.csv"
+market_path: "${load_path}/ticker_data_Market.csv"
+
+emb_size: 100
+random_state: 42
+
+embedding_methods:
+  - FastICA:
+      _target_: embeddings.base_embedding.ClassicEmbedding
+      emb_model:
+        _target_: sklearn.decomposition.FastICA
+        n_components: ${emb_size}
+        random_state: ${random_state}
+      path: ${save_path}/fastica.csv
+  - UMAP:
+      _target_: embeddings.base_embedding.ClassicEmbedding
+      emb_model:
+        _target_: umap.UMAP
+        n_components: ${emb_size}
+        random_state: ${random_state}
+      path: ${save_path}/umap.csv
+
+  - PCA:
+      _target_: embeddings.base_embedding.ClassicEmbedding
+      emb_model:
+        _target_: sklearn.decomposition.PCA
+        n_components: ${emb_size}
+        random_state: ${random_state}
+      path: ${save_path}/pca.csv
+
+  - Autoencoders_MLP:
+      _target_: embeddings.base_embedding.AutoencoderEmbedding
+      model_name : mlp
+      model_params:
+        checkpoint_path: "autoencoders/best_logs/${experiment_name_load}/mlp.ckpt"
+        in_features: ${emb_size}
+        latent_features: ${emb_size}
+      path: ${save_path}/autoencoder_mlp.csv
+
+  - Autoencoders_CNN:
+      _target_: embeddings.base_embedding.AutoencoderEmbedding
+      model_name : cnn
+      model_params:
+        checkpoint_path: "autoencoders/best_logs/${experiment_name_load}/cnn.ckpt"
+        in_channels: 1
+        n_latent_features: ${emb_size}
+        seq_len: ${emb_size}
+      path: ${save_path}/autoencoder_conv.csv
+
+  - Autoencoders_LSTM:
+      _target_: embeddings.base_embedding.AutoencoderEmbedding
+      model_name : lstm
+      model_params:
+        checkpoint_path: "autoencoders/best_logs/${experiment_name_load}/lstm.ckpt"
+        seq_len: ${emb_size}
+        n_features: 1
+        embedding_dim: ${emb_size}
+      path:  ${save_path}/autoencoder_lstm.csv
+
+  - Table_finance:
+      _target_: embeddings.base_embedding.FinancialMetricEmbedding
+      riskless_rate: ${riskless_rate}
+      path:  ${save_path}/table_finance_features.csv
+
+  - TSFresh:
+      _target_: embeddings.base_embedding.TSFreshEmbedding
+      n_features: ${emb_size}
+      path:  ${save_path}/tsfresh.csv
+
+  - TS2Vec:
+      _target_: embeddings.base_embedding.TS2VecEmbedding
+      emb_model: 
+        _target_: ts2vec.ts2vec.TS2Vec
+        input_dims: 1
+        device: 0
+        output_dims: 100
+      path: ${save_path}/ts2vec.csv
+
+  

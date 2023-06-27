@@ -147,8 +147,7 @@ def backtesting_one_model(df_pct,  # df with pct_changes: columns - tick, index 
 
     test_start_month = test_start_year * 12 + test_start_month - 1  # indexing from 0
     test_finish_month = test_finish_year * 12 + test_finish_month - 1  # indexing from 0
-    train_finish_month = test_finish_month - window_train - window_test + 1
-
+    
     for test_start_per in range(test_start_month, test_finish_month, window_test):
         df_train, df_test = get_train_test_data(df_pct, test_start_per, window_train, window_test)
 
