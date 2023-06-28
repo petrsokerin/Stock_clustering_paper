@@ -1,0 +1,63 @@
+riskless_rate: 0.03
+ret_det: 0.03
+n_clusters: 11
+n_stock_portfolio: 2
+random_state: 42
+year_start: 2015
+fine_tune: false
+experiment_name: usa_${year_start}
+sectors_path: data/tickers_list/sp500_ticker_sectors.csv
+save_path: results/${experiment_name}
+load_path: data/data/${experiment_name}
+data_path: ${load_path}/ticker_data_preprocessed.csv
+market_path: ${load_path}/ticker_data_Market.csv
+embedding_path: data/embeddings/${experiment_name}
+clust_models:
+  KMeans:
+    _target_: sklearn.cluster.KMeans
+    n_clusters: ${n_clusters}
+    random_state: ${random_state}
+  Agg:
+    _target_: sklearn.cluster.AgglomerativeClustering
+    n_clusters: ${n_clusters}
+clust_models_params:
+  KMeans:
+    n_clusters:
+    - 9
+    - 10
+    - 11
+    - 12
+    - 13
+    init:
+    - k-means++
+    - random
+    algorithm:
+    - auto
+    - full
+    - elkan
+  Agg:
+    n_clusters:
+    - 9
+    - 10
+    - 11
+    - 12
+    - 13
+    linkage':
+    - ward
+    - complete
+    - average
+    - single
+clust_params:
+  make_grid: ${fine_tune}
+selection_params:
+  n_save: ${n_stock_portfolio}
+  riskfree_rate: ${riskless_rate}
+backtesting_params:
+  window_train: 24
+  window_test: 1
+  test_start_month: 1
+  test_finish_month: 1
+financial_metric_path: ${save_path}/financial_metric_${fine_tune}.csv
+clust_metric_path: ${save_path}/clust_metric_${fine_tune}.csv
+port_path: ${save_path}/metrics_table_${fine_tune}.pickle
+weights_path: ${save_path}/weights_table_${fine_tune}.pickle
