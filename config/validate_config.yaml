@@ -3,10 +3,11 @@ ret_det: 0.03
 n_clusters: 11
 n_stock_portfolio: 2
 random_state: 42
-year_split: 2020
-year_end: 2023
+year_start: 2018
+# year_split: 2020
+# year_end: 2023
 fine_tune: False
-experiment_name: 'usa_2018'
+experiment_name: 'usa_${year_start}'
 sectors_path: "data/tickers_list/sp500_ticker_sectors.csv"
 
 save_path: results/${experiment_name}
@@ -46,9 +47,9 @@ selection_params:
 backtesting_params:
   window_train: 24 # size of train window in months
   window_test: 1  # size of train window in months   
-  test_start_year: ${year_split} #start data year
+  #test_start_year: ${year_split} #start data year
   test_start_month: 1 #start data month 
-  test_finish_year: ${year_end} #end data year
+  #test_finish_year: ${year_end} #end data year
   test_finish_month: 1 #end data month
 
 

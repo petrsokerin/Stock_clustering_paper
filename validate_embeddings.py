@@ -113,7 +113,12 @@ def update_config(cfg):
     selection_params.update({'selection_method':selection_sharp, 'riskfree_rate':riskfree_rate})
     
     backtesting_params = dict(cfg['backtesting_params'])
-    backtesting_params.update({'port_model':MarkowitzPortfolio, 'ret_det':ret_det})
+    backtesting_params.update({
+        'port_model':MarkowitzPortfolio, 
+        'ret_det':ret_det, 
+        'test_start_year': cfg['year_start'] + 2, 
+        'test_finish_year': cfg['year_start'] + 5, 
+    })
     
     return riskfree_rate, ret_det, clust_params, clust_models_params, selection_params, backtesting_params
 
@@ -219,7 +224,7 @@ def main(cfg: DictConfig):
         cfg['data_path'], 
         cfg['market_path'], 
         cfg['sectors_path'],
-        cfg['year_split']
+        year_split=cfg['year_start'] + 2
     )
 
     riskfree_rate, _, clust_params, clust_models_params, selection_params, backtesting_params = update_config(cfg)
@@ -233,10 +238,10 @@ def main(cfg: DictConfig):
     all_files = os.listdir(cfg['embedding_path'])
     for emb_path in tqdm(all_files):
         
-        emb_name = emb_path.replace('.csv', '')        
+        emb_name = emb_path.replace('.csv', '')   
+        print(emb_name)     
         embeddings = pd.read_csv(cfg['embedding_path'] + '/' + emb_path, index_col=0).loc[tickers_list].values
         
-        print(emb_name)
         ports_df = pd.DataFrame()
         dict_weights = dict()
         
