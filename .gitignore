@@ -10,4 +10,5 @@ autoencoders/lightning_logs/
 autoencoders/lightning_logs_old/
 **lightning_logs**
 **best_logs**
+multirun/
 
