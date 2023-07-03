@@ -9,8 +9,9 @@ year_start: 2018
 fine_tune: False
 experiment_name: 'usa_${year_start}'
 sectors_path: "data/tickers_list/sp500_ticker_sectors.csv"
+postfix: 's2v'
 
-save_path: results/${experiment_name}
+save_path: results/${experiment_name}_${postfix}
 load_path: data/data/${experiment_name}
 data_path: "${load_path}/ticker_data_preprocessed.csv"
 market_path: "${load_path}/ticker_data_Market.csv"
